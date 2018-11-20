@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>获取所在地ip与所在地</title>
 </head>
+
 <body>
-    <h1>这是test页面的内容</h1>
+    <div id="box"></div>
+    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+    <script type="text/javascript">
+        var ip = returnCitySN["cip"];
+        var city = returnCitySN["cname"];
+        var box = document.getElementById("box");
+        box.innerText = 'ip: ' + ip + ' 所在地:' + city;
+    </script>
 </body>
+
 </html>
