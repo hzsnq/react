@@ -3,6 +3,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## react井字棋小游戏
 
 教程：https://react.docschina.org/tutorial/tutorial.html
+在线预览：https://hzsnq.github.io/build/
 
 ## Available Scripts
 
