@@ -85,8 +85,7 @@ class Game extends React.Component {
         const winner = calculateWinner(current.squares);
 
         const moves = history.map((step, move) => {
-            console.log(step, move)
-            const desc = move ? 'Go to move #' + move + '(' + 1 + ')' : 'Go to game start';
+            const desc = move ? 'Go to move #' + move : 'Go to game start';
             return (
                 <li key={move}>
                     <button onClick={() => this.jumpTo(move)}>{desc}</button>
@@ -116,9 +115,50 @@ class Game extends React.Component {
 }
 
 // ========================================
+// clock
+class Clock extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = { date: new Date() };
+    };
+
+    componentDidMount() {
+        this.timerID = setInterval(() => this.tick(), 1000);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timerID);
+    }
+
+    tick() {
+        this.setState({
+            date: new Date()
+        });
+    }
+
+    render() {
+        return (
+            <div>
+                <h1>Hello，world!</h1>
+                <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+            </div>
+        )
+    }
+}
+
+class All extends React.Component {
+    render() {
+        return (
+            <div>
+                <Game />
+                <Clock />
+            </div>
+        );
+    }
+}
 
 ReactDOM.render(
-    <Game />,
+    <All />,
     document.getElementById('root')
 );
 
