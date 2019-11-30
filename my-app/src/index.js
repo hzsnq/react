@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import Sister from './sister'
 
 function Square(props) {
     return (
@@ -158,7 +159,7 @@ class All extends React.Component {
 }
 
 ReactDOM.render(
-    <All />,
+    <Sister />,
     document.getElementById('root')
 );
 
