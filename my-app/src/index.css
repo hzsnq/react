@@ -54,3 +54,96 @@ ul {
 .input {
     border: 3px solid #ae7000
 }
+
+.show {
+    animation: show-item 2s ease-in forwards;
+}
+
+.hide {
+    animation: hide-item 2s ease-in forwards;
+}
+
+@keyframes hide-item {
+    0% {
+        opacity: 1;
+        color: #f43f3b;
+    }
+
+    25% {
+        opacity: 0.75;
+        color: #ed1c24;
+    }
+
+    50% {
+        opacity: 0.5;
+        color: #ec008c;
+    }
+
+    75% {
+        opacity: 0.25;
+        color: #39b54a;
+    }
+
+    100% {
+        opacity: 0;
+        color: #ff9700;
+    }
+}
+
+
+@keyframes show-item {
+    0% {
+        opacity: 0;
+        color: #f43f3b;
+    }
+
+    25% {
+        opacity: 0.25;
+        color: #ed1c24;
+    }
+
+    50% {
+        opacity: 0.5;
+        color: #ec008c;
+    }
+
+    75% {
+        opacity: 0.75;
+        color: #39b54a;
+    }
+
+    100% {
+        opacity: 1;
+        color: #ff9700;
+    }
+}
+
+/* 入场 */
+.show-enter,
+.show-appear {
+    opacity: 0;
+}
+
+.show-enter-active,
+.show-appear-active {
+    opacity: 1;
+    transition: opacity 2000ms;
+}
+
+.show-enter-done {
+    opacity: 1;
+}
+
+/* 出场 */
+.show-exit {
+    opacity: 1;
+}
+
+.show-exit-active {
+    opacity: 0;
+    transition: opacity 2000ms;
+}
+
+.show-exit-done {
+    opacity: 0;
+}
