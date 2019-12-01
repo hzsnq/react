@@ -39,12 +39,21 @@ Mounting阶段叫挂载阶段，伴随着整个虚拟DOM的生成，它里边有
 注意的问题  
 componentWillMount和componentDidMount这两个生命周期函数，只在页面刷新时执行一次，而render函数是只要有state和props变化就会执行，这个初学者一定要注意。  
 
-具体： http://jspang.com/posts/2019/05/04/new-react-base.html#%E7%AC%AC19%E8%8A%82%EF%BC%9Areact%E9%AB%98%E7%BA%A7-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E8%AE%B2%E8%A7%A3-1
+具体： http://jspang.com/posts/2019/05/04/new-react-base.html#%E7%AC%AC19%E8%8A%82%EF%BC%9Areact%E9%AB%98%E7%BA%A7-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E8%AE%B2%E8%A7%A3-1  
 注：部分生命周期即将过期，请结合https://zh-hans.reactjs.org/docs/react-component.html#mounting  
 中的组件生命周期理解
 
 #2019-11-30  
 今日遗留问题  
 shouldComponentUpdate  返回false仍然会渲染子组件，暂无好的解决方法  
+已解决，没必要这么弄
+
+#2019-12-1  
+Reduce 详见ReduceDemo/demo01/src/store  
+store必须是唯一的，多个store是坚决不允许，只能有一个store空间  
+只有store能改变自己的内容，Reducer不能改变  
+Reducer必须是纯函数  
+
+
 
 

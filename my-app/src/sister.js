@@ -22,7 +22,7 @@ class Sister extends Component {
     }
 
     addList() {
-        if (this.state.inputValue != '') {
+        if (this.state.inputValue !== '') {
             this.setState({
                 list: [...this.state.list, this.state.inputValue],
                 inputValue: ''
