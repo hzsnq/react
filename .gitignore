@@ -1,5 +1,4 @@
 my-app/node_modules
-ReduxDemo/demo01/node_modules
-ReduxDemo/demo02/node_modules
+../../node_modules
 node_modules
 .vscode

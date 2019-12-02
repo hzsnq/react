@@ -71,6 +71,13 @@ https://jspang.com/posts/2019/06/20/redux.html#p16-%E8%BF%9B%E9%98%B6-redux-thun
 
 ReduxDemo/demo02是react-redux的例子
 
+react-router  
+精准匹配  exact  
+
+重定向  标签式重定向  <Redirect to="/home/" />  
+
+编程式重定向   this.props.history.push("/home/");  
+
 
 
 
