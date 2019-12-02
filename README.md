@@ -46,13 +46,31 @@ componentWillMount和componentDidMount这两个生命周期函数，只在页面
 #2019-11-30  
 今日遗留问题  
 shouldComponentUpdate  返回false仍然会渲染子组件，暂无好的解决方法  
-已解决，没必要这么弄
+已解决，没必要这么弄  
+12月2日发现好文  
+https://zhuanlan.zhihu.com/p/29266705
 
 #2019-12-1  
 Reduce 详见ReduceDemo/demo01/src/store  
 store必须是唯一的，多个store是坚决不允许，只能有一个store空间  
 只有store能改变自己的内容，Reducer不能改变  
 Reducer必须是纯函数  
+
+#2019-12-2  
+
+学习Redux的中间件Redux-thunk与Redux-saga  二者取一即可
+
+配置Redux Dev Tools插件与Redux插件一起用  增强函数实现
+
+具体参考  
+https://jspang.com/posts/2019/06/20/redux.html#p16-%E8%BF%9B%E9%98%B6-redux-thunk%E4%B8%AD%E9%97%B4%E4%BB%B6%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE  
+
+目录ReduxDemo/demo01/src/store/index.js  
+
+学习react-redux(需要注意的是概念：React、Redux、React-redux是三个不同的东西)  
+
+ReduxDemo/demo02是react-redux的例子
+
 
 
 
