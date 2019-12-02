@@ -72,11 +72,38 @@ https://jspang.com/posts/2019/06/20/redux.html#p16-%E8%BF%9B%E9%98%B6-redux-thun
 ReduxDemo/demo02是react-redux的例子
 
 react-router  
+
 精准匹配  exact  
 
 重定向  标签式重定向  <Redirect to="/home/" />  
 
 编程式重定向   this.props.history.push("/home/");  
+
+React Hooks  
+
+useState是react自带的一个hook函数，它的作用是用来声明状态变量     声明、读取、使用（修改）  
+
+React Hooks不能出现在条件判断语句中，因为它必须有完全一样的渲染顺序。  
+
+用useEffect函数来代替生命周期函数  
+
+useEffect两个注意点  
+React首次渲染和之后的每次渲染都会调用一遍useEffect函数，而之前我们要用两个生命周期函数分别表示首次渲染(componentDidMonut)和更新导致的重新渲染(componentDidUpdate)。  
+
+useEffect中定义的函数的执行不会阻碍浏览器更新视图，也就是说这些函数时异步执行的，而componentDidMonut和componentDidUpdate中的代码都是同步执行的。个人认为这个有好处也有坏处吧，比如我们要根据页面的大小，然后绘制当前弹出窗口的大小，如果时异步的就不好操作了。  
+
+Context的作用就是对它所包含的组件树提供全局共享数据的一种技术。  
+
+reducer其实就是一个函数，这个函数接收两个参数，一个是状态，一个用来控制业务逻辑的判断参数。  
+
+useReducer了，它也是React hooks提供的函数，可以增强我们的Reducer  
+
+示例代码  ReactHooksDemo/demo01/src/example3.js  
+
+useContext和useReducer的小栗子  
+示例代码  ReactHooksDemo/demo01/src/example4  
+
+
 
 
 
