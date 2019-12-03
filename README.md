@@ -122,7 +122,60 @@ Next.js学习
 
 目前Next.js是React服务端渲染的最佳解决方案，所以如果你想使用React来开发需要SEO的应用，基本上就要使用Next.js。  
 
-NextDemo文件夹是手动搭建的项目
+NextDemo文件夹是手动搭建的项目  
+NextCreateDemo文件夹是create-next-app的项目 (由于NPM命名限制,名称不能再包含大写字母)
+
+项目结构介绍  
+
+components文件夹:这里是专门放置自己写的组件的，这里的组件不包括页面，指公用的或者有专门用途的组件。  
+
+node_modules文件夹：Next项目的所有依赖包都在这里，一般我们不会修改和编辑这里的内容。  
+
+pages文件夹：这里是放置页面的，这里边的内容会自动生成路由，并在服务器端渲染，渲染好后进行数据同步。  
+
+static文件夹： 这个是静态文件夹，比如项目需要的图片、图标和静态资源都可以放到这里。  
+
+.gitignore文件： 这个主要是控制git提交和上传文件的，简称就是忽略提交。  
+
+package.json文件：定义了项目所需要的文件和项目的配置信息（名称、版本和许可证），最主要的是使用npm install 就可以下载项目所需要的所有包。  
+
+withRouter是Next.js框架的高级组件，用来处理路由用的  
+
+next路由的六个钩子事件  
+
+routerChangeStart路由发生变化时  
+
+routerChangeComplete路由结束变化时  
+
+beforeHistoryChange浏览器history触发前  
+
+routeChangeError路由跳转发生错误时  
+
+转变成hash路由模式  hashChangeStart    hashChangeComplete  
+
+在Next.js框架中提供了getInitialProps静态方法用来获取远端数据  
+
+Style JSX语法  
+
+开始进行配置，让Next.js支持CSS文件  
+
+先用yarn命令来安装@zeit/next-css包，它的主要功能就是让Next.js可以加载CSS文件，有了这个包才可以进行配置。  
+
+按需加载Ant Design  用到babel-plugin-import  
+
+具体查阅：http://jspang.com/posts/2019/09/01/react-nextjs.html#p11%EF%BC%9Anext-js%E6%A1%86%E6%9E%B6%E4%B8%8B%E4%BD%BF%E7%94%A8ant-design-ui  
+
+这样打包会报错，可以参考https://github.com/zeit/next.js/blob/canary/examples/with-ant-design/README.md  官方文档创建带ant的next项目  
+
+创建后的架构为 NextCreateDemo/with-ant-design-app
+
+
+
+
+
+
+
+
 
 
 
