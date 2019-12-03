@@ -165,7 +165,7 @@ Style JSX语法
 
 具体查阅：http://jspang.com/posts/2019/09/01/react-nextjs.html#p11%EF%BC%9Anext-js%E6%A1%86%E6%9E%B6%E4%B8%8B%E4%BD%BF%E7%94%A8ant-design-ui  
 
-这样打包会报错，可以参考https://github.com/zeit/next.js/blob/canary/examples/with-ant-design/README.md  官方文档创建带ant的next项目  
+也可以参考https://github.com/zeit/next.js/blob/canary/examples/with-ant-design/README.md  官方文档   创建带ant的next项目  
 
 创建后的架构为 NextCreateDemo/with-ant-design-app
 
