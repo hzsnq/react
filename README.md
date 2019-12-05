@@ -1,11 +1,11 @@
 # React学习
-#2019-11-28  
+## 2019-11-28  
 
 井字棋小游戏与时钟  
 
 地址：https://hzsnq.github.io/build/  
 
-#2019-11-29  
+## 2019-11-29  
 
 Simple React Snippets  react快速生成插件  
 
@@ -43,7 +43,7 @@ componentWillMount和componentDidMount这两个生命周期函数，只在页面
 注：部分生命周期即将过期，请结合https://zh-hans.reactjs.org/docs/react-component.html#mounting  
 中的组件生命周期理解
 
-#2019-11-30  
+## 2019-11-30  
 今日遗留问题  
 shouldComponentUpdate  返回false仍然会渲染子组件，暂无好的解决方法  
 已解决，没必要这么弄  
@@ -56,7 +56,7 @@ store必须是唯一的，多个store是坚决不允许，只能有一个store�
 只有store能改变自己的内容，Reducer不能改变  
 Reducer必须是纯函数  
 
-#2019-12-2  
+## 2019-12-2  
 
 学习Redux的中间件Redux-thunk与Redux-saga  二者取一即可
 
@@ -103,7 +103,7 @@ useReducer了，它也是React hooks提供的函数，可以增强我们的Reduc
 useContext和useReducer的小栗子  
 示例代码  ReactHooksDemo/demo01/src/example4  
 
-#2019-12-3  
+## 2019-12-3  
 
 使用function的形式来声明组件，失去了shouldCompnentUpdate（在组件更新之前）这个生命周期，也就是说我们没有办法通过组件更新前条件来决定组件是否更新。而且在函数组件中，也不再区分mount和update两个状态，这意味着函数组件的每一次调用都会执行内部的所有逻辑，就带来了非常大的性能损耗。useMemo和useCallback都是解决上述性能问题的.
 
@@ -167,7 +167,9 @@ Style JSX语法
 
 也可以参考https://github.com/zeit/next.js/blob/canary/examples/with-ant-design/README.md  官方文档   创建带ant的next项目  
 
-创建后的架构为 NextCreateDemo/with-ant-design-app
+创建后的架构为 NextCreateDemo/with-ant-design-app  
+## 2019-12-3 
+react-blog是一个博客项目，功能有待完善，架构已经搭好
 
 
 
