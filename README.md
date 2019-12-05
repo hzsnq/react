@@ -168,10 +168,12 @@ Style JSX语法
 也可以参考[官方文档](https://github.com/zeit/next.js/blob/canary/examples/with-ant-design/README.md) 创建带ant的next项目  
 
 创建后的架构为 NextCreateDemo/with-ant-design-app  
-## 2019-12-3 
+## 2019-12-4 
 react-blog是一个博客项目，功能有待完善，架构已经搭好
-
-
+react-blog
+* admin 博客后台 使用React Hooks + Ant Design
+* blog 博客前台 使用Next.js+ Ant Design
+* service 博客中台(服务端) 使用mysql+egg.js
 
 
 
