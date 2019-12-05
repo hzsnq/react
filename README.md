@@ -3,7 +3,7 @@
 
 井字棋小游戏与时钟  
 
-地址：[预览点我](https://hzsnq.github.io/build/ )  
+地址：[预览点我](https://hzsnq.github.io/build/)  
 
 ## 2019-11-29  
 
@@ -39,18 +39,17 @@ Mounting阶段叫挂载阶段，伴随着整个虚拟DOM的生成，它里边有
 注意的问题  
 componentWillMount和componentDidMount这两个生命周期函数，只在页面刷新时执行一次，而render函数是只要有state和props变化就会执行，这个初学者一定要注意。  
 
-具体： http://jspang.com/posts/2019/05/04/new-react-base.html#%E7%AC%AC19%E8%8A%82%EF%BC%9Areact%E9%AB%98%E7%BA%A7-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E8%AE%B2%E8%A7%A3-1  
-注：部分生命周期即将过期，请结合https://zh-hans.reactjs.org/docs/react-component.html#mounting  
-中的组件生命周期理解
+具体详解：[查看点我](http://jspang.com/posts/2019/05/04/new-react-base.html#%E7%AC%AC19%E8%8A%82%EF%BC%9Areact%E9%AB%98%E7%BA%A7-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E8%AE%B2%E8%A7%A3-1)  
+
+注：部分生命周期即将过期，请结合[官网](https://zh-hans.reactjs.org/docs/react-component.html#mounting)中的组件生命周期理解
 
 ## 2019-11-30  
 今日遗留问题  
 shouldComponentUpdate  返回false仍然会渲染子组件，暂无好的解决方法  
 已解决，没必要这么弄  
-12月2日发现好文  
-https://zhuanlan.zhihu.com/p/29266705
+12月2日发现[好文](https://zhuanlan.zhihu.com/p/29266705)
 
-#2019-12-1  
+## 2019-12-1  
 Reduce 详见ReduceDemo/demo01/src/store  
 store必须是唯一的，多个store是坚决不允许，只能有一个store空间  
 只有store能改变自己的内容，Reducer不能改变  
@@ -63,7 +62,7 @@ Reducer必须是纯函数
 配置Redux Dev Tools插件与Redux插件一起用  增强函数实现
 
 具体参考  
-https://jspang.com/posts/2019/06/20/redux.html#p16-%E8%BF%9B%E9%98%B6-redux-thunk%E4%B8%AD%E9%97%B4%E4%BB%B6%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE  
+[点我](https://jspang.com/posts/2019/06/20/redux.html#p16-%E8%BF%9B%E9%98%B6-redux-thunk%E4%B8%AD%E9%97%B4%E4%BB%B6%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE)  
 
 目录ReduxDemo/demo01/src/store/index.js  
 
@@ -75,9 +74,10 @@ react-router
 
 精准匹配  exact  
 
-重定向  标签式重定向  <Redirect to="/home/" />  
+重定向  标签式重定向  
+#```<Redirect to="/home/" />#```   
 
-编程式重定向   this.props.history.push("/home/");  
+编程式重定向   #```this.props.history.push("/home/");#```  
 
 React Hooks  
 
@@ -163,9 +163,9 @@ Style JSX语法
 
 按需加载Ant Design  用到babel-plugin-import  
 
-具体查阅：http://jspang.com/posts/2019/09/01/react-nextjs.html#p11%EF%BC%9Anext-js%E6%A1%86%E6%9E%B6%E4%B8%8B%E4%BD%BF%E7%94%A8ant-design-ui  
+具体查阅：[解决方案](http://jspang.com/posts/2019/09/01/react-nextjs.html#p11%EF%BC%9Anext-js%E6%A1%86%E6%9E%B6%E4%B8%8B%E4%BD%BF%E7%94%A8ant-design-ui)  
 
-也可以参考https://github.com/zeit/next.js/blob/canary/examples/with-ant-design/README.md  官方文档   创建带ant的next项目  
+也可以参考[官方文档](https://github.com/zeit/next.js/blob/canary/examples/with-ant-design/README.md) 创建带ant的next项目  
 
 创建后的架构为 NextCreateDemo/with-ant-design-app  
 ## 2019-12-3 
