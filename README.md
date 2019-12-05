@@ -9,13 +9,13 @@
 
 Simple React Snippets  react快速生成插件  
 
-单项数据流 只能用传过来的值，不能修改，可以通过传递父组件来修改  
+>单项数据流 只能用传过来的值，不能修改，可以通过传递父组件来修改  
 
-函数式编程
+**函数式编程**
 
-1.函数式编程让我们的代码更清晰，每个功能都是一个函数。  
+>1.函数式编程让我们的代码更清晰，每个功能都是一个函数。  
 
-2.函数式编程为我们的代码测试代理了极大的方便，更容易实现前端自动化测试。  
+>2.函数式编程为我们的代码测试代理了极大的方便，更容易实现前端自动化测试。  
 
 PropTypes校验传递值  
 PropTypes.string.isRequired 必须传
@@ -75,9 +75,10 @@ react-router
 精准匹配  exact  
 
 重定向  标签式重定向  
-#```<Redirect to="/home/" />#```   
+```<Redirect to="/home/" />```   
 
-编程式重定向   #```this.props.history.push("/home/");#```  
+编程式重定向   
+```this.props.history.push("/home/");```  
 
 React Hooks  
 
@@ -169,7 +170,7 @@ Style JSX语法
 
 创建后的架构为 NextCreateDemo/with-ant-design-app  
 ## 2019-12-4 
-react-blog是一个博客项目，功能有待完善，架构已经搭好
+react-blog是一个博客项目，功能有待完善，架构已经搭好  
 react-blog
 * admin 博客后台 使用React Hooks + Ant Design
 * blog 博客前台 使用Next.js+ Ant Design
