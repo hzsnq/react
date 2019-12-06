@@ -15,10 +15,17 @@ function Login(props) {
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-
-  }, [])
+    let item = localStorage.getItem('openId')
+    if (item) {
+      props.history.push('/index')
+    } else {
+      props.history.push('/login')
+    }
+    // console.log(openIdContext)
+  }, [props.history])
 
   const checkLogin = () => {
+    console.log(111)
     setIsLoading(true)
 
     if (!userName) {
@@ -38,10 +45,11 @@ function Login(props) {
 
     axios({ method: "post", url: servicePath.checkLogin, data: dataProps, withCredentials: true })
       .then(res => {
-        console.log(res.data)
         setIsLoading(false)
         if (res.data.data === '登录成功') {
           localStorage.setItem('openId', res.data.openId)
+          let userInfo = JSON.parse(res.data.userInfo[0])
+          localStorage.setItem('userInfo', userInfo)
           props.history.push('/index')
         } else {
           message.error('用户名密码错误')

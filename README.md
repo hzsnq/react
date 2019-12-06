@@ -178,7 +178,16 @@ react-blog是一个博客项目，功能有待完善，架构已经搭好
 react-blog
 * admin 博客后台 使用React Hooks + Ant Design
 * blog 博客前台 使用Next.js+ Ant Design
-* service 博客中台(服务端) 使用mysql+egg.js
+* service 博客中台(服务端) 使用mysql+egg.js  
+
+## 2019-12-5  
+
+整理前几日学习笔记，写blog项目
+
+## 2019-12-6  
+把时间转换成数字时间戳  
+
+```Math.round(new Date(dateString) / 1000)```
 
 
 

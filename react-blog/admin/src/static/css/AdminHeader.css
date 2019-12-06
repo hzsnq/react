@@ -1,0 +1,11 @@
+.index-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 64px;
+  padding: 0 20px;
+}
+
+.user-name {
+  padding: 0 20px;
+}
