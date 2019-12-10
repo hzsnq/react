@@ -187,7 +187,9 @@ react-blog
 ## 2019-12-6  
 把时间转换成数字时间戳  
 
-```Math.round(new Date(dateString) / 1000)```
+```Math.round(new Date(dateString) / 1000)```  
+## 2019-12-7 ---- 2019-12-10
+完成博客文章，类别等的操作，继续完善博客
 
 
 
