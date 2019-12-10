@@ -9,4 +9,7 @@ module.exports = app => {
   router.post('/admin/getArticleById', adminauth, controller.admin.main.getArticleById)
   router.post('/admin/editArticle', adminauth, controller.admin.main.editArticle)
   router.post('/admin/deleteArticleById', adminauth, controller.admin.main.deleteArticleById)
+  router.post('/admin/addTypeInfo', adminauth, controller.admin.main.addTypeInfo)
+  router.post('/admin/editTypeInfo', adminauth, controller.admin.main.editTypeInfo)
+  router.post('/admin/deleteTypeInfoById', adminauth, controller.admin.main.deleteTypeInfoById)
 }

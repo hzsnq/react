@@ -16,7 +16,14 @@ function ArticleList(props) {
     const fetchData = async () => {
       const result = await axios({ method: "get", url: servicePath.getArticleList, withCredentials: true })
         .then((res) => {
-          return res.data.data
+          if (res.data.data === '没有登录') {
+            localStorage.clear('openId')
+            localStorage.clear('userInfo')
+            props.history.push('/login')
+            return
+          } else {
+            return res.data.data
+          }
         })
       for (let i = 0; i < result.length; i++) {
         result[i].key = i + 1
@@ -102,6 +109,7 @@ function ArticleList(props) {
         }
       })
   }
+
   return (
     <Spin tip="loading..." spinning={isLoading}>
       <Table dataSource={articleList}>

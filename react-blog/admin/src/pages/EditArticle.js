@@ -39,7 +39,14 @@ function EditArticle(props) {
     const fetchData = async () => {
       const result = await axios({ method: "get", url: servicePath.getTypeInfo, withCredentials: true })
         .then((res) => {
-          return res.data.data
+          if (res.data.data === '没有登录') {
+            localStorage.clear('openId')
+            localStorage.clear('userInfo')
+            props.history.push('/login')
+            return
+          } else {
+            return res.data.data
+          }
         })
       if (!isUnmounted) {
         setTypeInfo(result)
@@ -60,8 +67,14 @@ function EditArticle(props) {
     const fetchData = async () => {
       const result = await axios({ method: "post", url: servicePath.getArticleById, data: params, withCredentials: true })
         .then((res) => {
-          console.log(res.data.data)
-          return res.data.data
+          if (res.data.data === '没有登录') {
+            localStorage.clear('openId')
+            localStorage.clear('userInfo')
+            props.history.push('/login')
+            return
+          } else {
+            return res.data.data
+          }
         })
       if (!isUnmounted) {
         setSelectType(result[0].type_id)
@@ -172,7 +185,7 @@ function EditArticle(props) {
                   {
                     typeInfo.map((item, index) => {
                       return (
-                        <Option value={item.id} key={index}>{item.type_name}</Option>
+                        <Option value={item.order_num} key={index}>{item.type_name}</Option>
                       )
                     })
                   }

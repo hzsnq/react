@@ -30,6 +30,52 @@ class MainController extends Controller {
     }
   }
 
+  async addTypeInfo() {
+
+    let typeName = this.ctx.request.body.typeName
+    let orderNum = this.ctx.request.body.orderNum
+    let Icon = this.ctx.request.body.Icon
+
+    const sql = "INSERT INTO `type` (type_name,order_num,icon) VALUES('" + typeName + "'," + orderNum + ",'" + Icon + "')"
+
+    const res = await this.app.mysql.query(sql)
+    if (res.insertId > 0) {
+      this.ctx.body = { data: '添加成功' }
+    } else {
+      this.ctx.body = { data: '添加失败' }
+    }
+  }
+
+  async editTypeInfo() {
+
+    let id = this.ctx.request.body.id
+    let typeName = this.ctx.request.body.typeName
+    let Icon = this.ctx.request.body.Icon
+
+    const sql = "UPDATE type set type_name='" + typeName + "',icon='" + Icon + "' WHERE id=" + id
+
+    const res = await this.app.mysql.query(sql)
+    if (res.changedRows > 0) {
+      this.ctx.body = { data: '修改成功' }
+    } else {
+      this.ctx.body = { data: '修改失败' }
+    }
+  }
+
+  async deleteTypeInfoById() {
+
+    let id = this.ctx.request.body.id
+
+    const sql = "DELETE FROM type WHERE id = " + id
+
+    const res = await this.app.mysql.query(sql)
+    if (res.affectedRows > 0) {
+      this.ctx.body = { data: '删除成功' }
+    } else {
+      this.ctx.body = { data: '删除失败' }
+    }
+  }
+
   async addArticle() {
 
     let isUpdate = this.ctx.request.body.isUpdate
@@ -56,7 +102,7 @@ class MainController extends Controller {
   async getArticleList() {
 
     const sql = "SELECT FROM_UNIXTIME(a.add_time,'%Y-%m-%d %H:%i:%s' ) as add_time,a.type_id,a.article_content,a.id,a.introduce,a.is_issue,a.is_update,a.title,FROM_UNIXTIME(a.update_time,'%Y-%m-%d %H:%i:%s' ) as update_time,a.view_count,t.type_name FROM article AS a " +
-      "LEFT JOIN type as t ON a.type_id=t.id ORDER BY a.id DESC"
+      "LEFT JOIN type as t ON a.type_id=t.order_num ORDER BY a.id DESC"
     const result = await this.app.mysql.query(sql)
     this.ctx.body = {
       data: result
