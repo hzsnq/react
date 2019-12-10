@@ -25,7 +25,6 @@ function Login(props) {
   }, [props.history])
 
   const checkLogin = () => {
-    console.log(111)
     setIsLoading(true)
 
     if (!userName) {
@@ -48,7 +47,7 @@ function Login(props) {
         setIsLoading(false)
         if (res.data.data === '登录成功') {
           localStorage.setItem('openId', res.data.openId)
-          let userInfo = JSON.parse(res.data.userInfo[0])
+          let userInfo = JSON.stringify(res.data.userInfo[0])
           localStorage.setItem('userInfo', userInfo)
           props.history.push('/index')
         } else {

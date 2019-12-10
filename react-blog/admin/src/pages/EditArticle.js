@@ -2,18 +2,16 @@ import React, { useState, useEffect } from 'react';
 import marked from 'marked'
 import '../static/css/AddArticle.css'
 import { Row, Col, Input, Select, Button, DatePicker, message, Spin } from 'antd'
-import { useSelector } from 'react-redux'
 import axios from 'axios'
 import servicePath from '../config/apiUrl'
 
 const { Option } = Select;
 const { TextArea } = Input
 
-function AddArticle(props) {
-
-  // const type = useSelector((state) => ({ list: state.list }))
+function EditArticle(props) {
+  const [articleId, setArticleId] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
-  const [isUpdate, setIsUpdate] = useState(0)  // 文章的更新状态，如果是0说明是新增加，如果不是0，说明是修改
+  // const [isUpdate, setIsUpdate] = useState(0)  // 文章的更新状态，如果是0说明是新增加，如果不是0，说明是修改
   const [isIssue, setIsIssue] = useState(0)  // 文章的发布状态，如果是0说明是暂存
   const [articleTitle, setArticleTitle] = useState('')   //文章标题
   const [articleContent, setArticleContent] = useState('')  //markdown的编辑内容
@@ -53,6 +51,36 @@ function AddArticle(props) {
     }
   }, [])
 
+  useEffect(() => {
+    console.log(props.match.params)
+    let isUnmounted = false;
+    let params = {
+      id: props.match.params.id
+    }
+    const fetchData = async () => {
+      const result = await axios({ method: "post", url: servicePath.getArticleById, data: params, withCredentials: true })
+        .then((res) => {
+          console.log(res.data.data)
+          return res.data.data
+        })
+      if (!isUnmounted) {
+        setSelectType(result[0].type_id)
+        setArticleTitle(result[0].title)
+        setArticleContent(result[0].article_content)
+        setMarkdownContent(marked(result[0].article_content))
+        setIntroducemd(result[0].introduce)
+        setIntroducehtml(marked(result[0].introduce))
+        setShowDate(result[0].add_time)
+        setIsIssue(result[0].is_issue)
+        setArticleId(result[0].id)
+      }
+    }
+    fetchData()
+    return () => {
+      isUnmounted = true;
+    }
+  }, [])
+
   const changeContent = (e) => {
     setArticleContent(e.target.value)
     let html = marked(e.target.value)
@@ -73,47 +101,44 @@ function AddArticle(props) {
     setArticleTitle(e.target.value)
   }
 
-  const changeShowDate = (value, dateString) => {
-    let date = Math.round(new Date(dateString) / 1000)
-    setShowDate(date)
+  const changePublish = () => {
+    if (isIssue === 0) {
+      setIsIssue(1)
+      articleAdd(1)
+    } else {
+      setIsIssue(0)
+      articleAdd(0)
+    }
   }
-
-  const articleStaging = () => {
-    setIsIssue(0)
-    articleAdd(0)
+  const updateArticle = () => {
+    let i = isIssue
+    articleAdd(i)
   }
-
-  const articlePublish = () => {
-    setIsIssue(1)
-    articleAdd(1)
-  }
-
   const articleAdd = (i) => {
     setIsLoading(true)
     // console.log(isUpdate, isIssue, articleTitle, articleContent, introducemd, showDate, updateDate, selectedType)
     let date = Math.round(new Date() / 1000)
     setUpdateDate(date)
     let params = {
-      isUpdate: 0,
+      id: articleId,
       isIssue: i,
       articleTitle: articleTitle,
       articleContent: articleContent,
       introducemd: introducemd,
-      showDate: showDate,
-      updateDate: showDate,
+      updateDate: date,
       selectedType: selectedType
     }
-    // console.log(params)
+    console.log(params)
     let paramsTs = Object.values(params);
     if (paramsTs.includes("") || paramsTs.includes(undefined) || paramsTs.includes(null)) {
       message.warning('还有内容没有填哦！！')
       setIsLoading(false)
     } else {
-      axios({ method: "post", url: servicePath.addArticle, data: params, withCredentials: true })
+      axios({ method: "post", url: servicePath.editArticle, data: params, withCredentials: true })
         .then(res => {
           // console.log(res)
           setIsLoading(false)
-          if (res.data.data === '添加成功') {
+          if (res.data.data === '修改成功') {
             message.success(res.data.data)
             setArticleContent('')
             setIntroducemd('')
@@ -127,7 +152,6 @@ function AddArticle(props) {
         })
     }
   }
-
   return (
     <div>
       <Spin tip="loading..." spinning={isLoading}>
@@ -144,7 +168,7 @@ function AddArticle(props) {
               </Col>
               <Col span={4}>
                 &nbsp;
-                <Select defaultValue={selectedType} size="large" onChange={changeTypeInfo}>
+                <Select defaultValue={selectedType} value={selectedType} size="large" onChange={changeTypeInfo}>
                   {
                     typeInfo.map((item, index) => {
                       return (
@@ -162,9 +186,9 @@ function AddArticle(props) {
                   value={articleContent}
                   className="markdown-content"
                   rows={35}
-                  placeholder="文章内容"
                   onChange={changeContent}
                   onPressEnter={changeContent}
+                  placeholder="文章内容"
                 />
               </Col>
               <Col span={12}>
@@ -179,8 +203,8 @@ function AddArticle(props) {
           <Col span={6}>
             <Row>
               <Col span={24}>
-                <Button size="large" onClick={articleStaging}>暂存文章</Button>&nbsp;
-              <Button type="primary" size="large" onClick={articlePublish}>发布文章</Button>
+                <Button type="primary" size="large" onClick={changePublish}>{isIssue === 0 ? '发布文章' : '暂存文章'}</Button>&nbsp;
+                <Button type="danger" size="large" onClick={updateArticle}>修改文章</Button>
                 <br />
               </Col>
               <Col span={24}>
@@ -198,16 +222,17 @@ function AddArticle(props) {
                   dangerouslySetInnerHTML={{ __html: '文章简介：' + introducehtml }}
                 ></div>
               </Col>
-              <Col span={12}>
+              {/* <Col span={12}>
                 <div className="date-select">
                   <DatePicker
                     placeholder="发布日期"
                     format="YYYY-MM-DD HH:mm:ss"
                     size="large"
+                    value={showDate}
                     onChange={changeShowDate}
                   />
                 </div>
-              </Col>
+              </Col> */}
             </Row>
           </Col>
         </Row>
@@ -216,4 +241,4 @@ function AddArticle(props) {
   )
 }
 
-export default AddArticle;
+export default EditArticle;
