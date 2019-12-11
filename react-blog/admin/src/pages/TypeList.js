@@ -38,6 +38,7 @@ function TypeList(props) {
       isUnmounted = true;
     }
   }, [])
+
   const fetchData = async () => {
     const result = await axios({ method: "get", url: servicePath.getTypeInfo, withCredentials: true })
       .then((res) => {

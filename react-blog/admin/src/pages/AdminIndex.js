@@ -7,6 +7,7 @@ import EditArticle from './EditArticle'
 import ArticleList from './ArticleList'
 import Workbench from './Workbench'
 import TypeList from './TypeList'
+import AdminUserList from './AdminUserList'
 // import { useSelector } from 'react-redux'
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -64,6 +65,9 @@ function AdminIndex(props) {
     } else if (e.key === "TypeList") {
       props.history.push('/index/TypeList')
       setShowTitle('类别列表')
+    } else if (e.key === "AdminUserList") {
+      props.history.push('/index/AdminUserList')
+      setShowTitle('后台用户')
     }
   }
   return (
@@ -83,7 +87,7 @@ function AdminIndex(props) {
             key="sub1"
             title={
               <span>
-                <Icon type="user" />
+                <Icon type="book" />
                 <span>文章管理</span>
               </span>
             }
@@ -93,8 +97,12 @@ function AdminIndex(props) {
           </SubMenu>
 
           <Menu.Item key="9">
-            <Icon type="file" />
+            <Icon type="smile" />
             <span>留言管理</span>
+          </Menu.Item>
+          <Menu.Item key="AdminUserList">
+            <Icon type="user" />
+            <span>后台用户</span>
           </Menu.Item>
         </Menu>
       </Sider>
@@ -123,6 +131,7 @@ function AdminIndex(props) {
               <Route path="/index/ArticleList" component={ArticleList} />
               <Route path="/index/EditArticle/:id" component={EditArticle} />
               <Route path="/index/TypeList" component={TypeList} />
+              <Route path="/index/AdminUserList" component={AdminUserList} />
             </div>
           </div>
         </Content>

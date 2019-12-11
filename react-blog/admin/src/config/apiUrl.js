@@ -11,6 +11,7 @@ let servicePath = {
   addTypeInfo: ipUrl + 'addTypeInfo',//添加文章类别
   editTypeInfo: ipUrl + 'editTypeInfo',//编辑文章类别
   deleteTypeInfoById: ipUrl + 'deleteTypeInfoById',//根据id删除文章类别
+  getAdminList: ipUrl + 'getAdminList',//获取用户列表
 }
 
 export default servicePath

@@ -152,6 +152,16 @@ class MainController extends Controller {
     }
   }
 
+  async getAdminList() {
+
+    const sql = "SELECT FROM_UNIXTIME(add_time,'%Y-%m-%d %H:%i:%s' ) as add_time,id,user_name,user_pwd,FROM_UNIXTIME(last_login_time,'%Y-%m-%d %H:%i:%s' ) as last_login_time,last_login_ip,is_enabled,user_state FROM admin_user"
+
+    const result = await this.app.mysql.query(sql)
+    this.ctx.body = {
+      data: result
+    }
+  }
+
 }
 
 module.exports = MainController

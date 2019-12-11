@@ -12,4 +12,5 @@ module.exports = app => {
   router.post('/admin/addTypeInfo', adminauth, controller.admin.main.addTypeInfo)
   router.post('/admin/editTypeInfo', adminauth, controller.admin.main.editTypeInfo)
   router.post('/admin/deleteTypeInfoById', adminauth, controller.admin.main.deleteTypeInfoById)
+  router.get('/admin/getAdminList', adminauth, controller.admin.main.getAdminList)
 }
