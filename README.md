@@ -190,9 +190,71 @@ react-blog
 ```Math.round(new Date(dateString) / 1000)```  
 
 ## 2019-12-7 ---- 2019-12-10
-完成博客文章，类别等的操作，继续完善博客
+完成博客文章，类别等的操作，继续完善博客  
 
+购买服务器  
 
+购买域名  
+
+## 2019-12-11  
+
+配置服务器  
+>安装vim
+
+``` bash
+yum -y install gcc gcc-c++ autoconf pcre-devel make automake
+
+yum -y install wget httpd-tools vim
+```
+>安装nginx，安装时可以```yum list | grep nginx```查看yum源里的```nginx```的版本
+
+``` bash
+yum install nginx
+
+nginx -v
+```
+>查看nginx安装到哪里
+``` bash
+rpm -ql nginx
+```
+>nginx配置 [点我](https://jspang.com/detailed?id=39#toc22)  
+
+>如果是阿里云的ecs，记得进行安全组配置  
+
+>nginx启动，停止，重启  
+``` bash
+nginx  //在CentOS7.4版本里（低版本是不行的），是可以直接直接使用nginx启动服务的。  
+
+systemctl start nginx.service //使用systemctl命令启动  
+
+ps aux | grep nginx //查询是否启动  
+
+nginx  -s stop //强制停止  
+
+nginx -s quit //从容停止  
+
+killall nginx //这种方法也是比较野蛮的，我们直接杀死进程，但是在上面使用没有效果时，我们用这种方法还是比较好的。  
+
+systemctl stop nginx.service //systemctl 停止  
+
+systemctl restart nginx.service //重启nginx  
+
+nginx -s reload //重新载入配置文件  
+
+netstat -tlnp //查看端口号的占用情况  
+
+```  
+>自定义错误页，访问设置，访问权限 [点我](https://jspang.com/detailed?id=39#toc27)  
+
+>设置虚拟主机，使用域名设置虚拟主机，nginx反向代理 [点我](https://jspang.com/detailed?id=39#toc28)  
+
+>nginx适配pc和移动设备，nginx的Gzip压缩配置 [点我](https://jspang.com/detailed?id=39#toc211)  
+
+>nginx配置https [点我](https://help.aliyun.com/document_detail/98728.html?spm=5176.2020520163.0.0.3234Knm4Knm4qR)  
+
+>阿里云免费申请ssl证书 [点我](https://yundun.console.aliyun.com/?spm=5176.12818093.aliyun_sidebar.193.488716d0aNveUT&p=cas#/overview/cn-hangzhou)
+
+明天开始配置mysql，今天折腾了好久这个服务器，还好是成功配置，大学学的linux知识还好都没还给老师
 
 
 
