@@ -22,13 +22,13 @@ function TypeList(props) {
             props.history.push('/login')
             return
           } else {
+            for (let i = 0; i < res.data.data.length; i++) {
+              res.data.data[i].key = i + 1
+              res.data.data[i].isSave = 1
+            }
             return res.data.data
           }
         })
-      for (let i = 0; i < result.length; i++) {
-        result[i].key = i + 1
-        result[i].isSave = 1
-      }
       if (!isUnmounted) {
         setTypeInfo(result)
       }

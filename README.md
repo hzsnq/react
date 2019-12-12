@@ -198,7 +198,7 @@ react-blog
 
 ## 2019-12-11  
 
-配置服务器  
+配置nginx  
 >安装vim
 
 ``` bash
@@ -279,10 +279,37 @@ select host,user,plugin from mysql.user;
 update mysql.user set plugin='mysql_native_password' where user='你创建的用户名';
 ```  
 
->还有一个问题，创建用户时，用户的密码策略还是```caching_sha2_password```，这时连接会报1251错误，需要把密码按照```mysql_native_password```更新一下
+>还有一个问题，创建用户时，用户的密码策略还是```caching_sha2_password```，这时连接会报1251错误，需要把密码按照```mysql_native_password```更新一下  
+
 ```bash
 ALTER USER '你的用户名'@'%' IDENTIFIED WITH mysql_native_password BY '你的密码'; #更新一下用户的密码
-``` 
+```   
+
+>最后设置下mysql开机启动  
+
+配置node和git的安装  
+
+>1、下载node二进制安装包 
+  wget https://nodejs.org/dist/v10.13.0/node-v10.13.0-linux-x64.tar.xz  
+2、解压
+  tar xvf node-v10.13.0-linux-x64.tar.xz  
+3、创建软链接，使node和npm全局有效  
+  ln -s /root/node-v10.13.0-linux-x64/bin/node /usr/local/bin/node  
+  ln -s /root/node-v10.13.0-linux-x64/bin/npm /usr/local/bin/npm  
+4、查看node和npm版本，如果显示版本号，说明安装成功  
+  node -v  
+  npm -v  
+5、软件默认安装在/root/node-v10.13.0-linux-x64/目录下
+
+>git安装配置 [点我](https://blog.csdn.net/jsboy123/article/details/80617231)  
+
+>还需要配置git用户组与用户 [点我](https://blog.csdn.net/UtopiaOfArtoria/article/details/86002916)  
+
+>最后配置  不然会报错 详情[点我](https://www.cnblogs.com/love-snow/articles/7542267.html)
+
+```bash
+ln -s /usr/local/git/bin/git-upload-pack /usr/bin/git-upload-pack 
+```
 
 
 
