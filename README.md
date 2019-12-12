@@ -254,7 +254,35 @@ netstat -tlnp //查看端口号的占用情况
 
 >阿里云免费申请ssl证书 [点我](https://yundun.console.aliyun.com/?spm=5176.12818093.aliyun_sidebar.193.488716d0aNveUT&p=cas#/overview/cn-hangzhou)
 
-明天开始配置mysql，今天折腾了好久这个服务器，还好是成功配置，大学学的linux知识还好都没还给老师
+明天开始配置mysql，今天折腾了好久这个服务器，还好是成功配置，大学学的linux知识还好都没还给老师  
+
+## 2019-12-12  
+配置mysql8.0版本  
+>检查服务器是否装mysql [检查卸载点我](https://www.cnblogs.com/Can-daydayup/p/10873948.html)
+
+>一定要选择正确的yum源，否则会出现各种各样的问题(来自折腾两小时的 - -!)  
+
+>例：虚拟装的是Centos7,必须下载 RH Linux 7 的安装包  
+
+>安装流程 [点我](https://www.cnblogs.com/yaowen/p/9486138.html)  
+
+>选对了源，安装就没报错，按照上面的流程顺利的进行到 ```Navicat``` 连接mysql8  
+
+>如果是阿里云的服务器，记的配置安全组策略  
+
+>mysql数据库创建、删除用户和授权、消权操作 [点我](https://www.cnblogs.com/gychomie/p/11013442.html)
+
+>需要注意的是 mysql8.0 引入了新特性 caching_sha2_password；这种密码加密方式客户端不支持；客户端支持的是mysql_native_password 这种加密方式；
+
+```bash
+select host,user,plugin from mysql.user;
+update mysql.user set plugin='mysql_native_password' where user='你创建的用户名';
+```  
+
+>还有一个问题，创建用户时，用户的密码策略还是```caching_sha2_password```，这时连接会报1251错误，需要把密码按照```mysql_native_password```更新一下
+```bash
+ALTER USER '你的用户名'@'%' IDENTIFIED WITH mysql_native_password BY '你的密码'; #更新一下用户的密码
+``` 
 
 
 
