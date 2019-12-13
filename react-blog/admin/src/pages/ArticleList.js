@@ -36,7 +36,7 @@ function ArticleList(props) {
     return () => {
       isUnmounted = true;
     }
-  }, [])
+  }, [props.history])
 
   //异步获取文章列表
   const fetchData = async () => {

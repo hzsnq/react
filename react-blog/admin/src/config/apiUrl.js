@@ -1,4 +1,4 @@
-let ipUrl = 'http://127.0.0.1:7001/admin/'
+let ipUrl = 'http://47.93.215.103:7000/admin/'
 
 let servicePath = {
   checkLogin: ipUrl + 'checkLogin',  //  检查用户名密码是否正确
@@ -12,6 +12,9 @@ let servicePath = {
   editTypeInfo: ipUrl + 'editTypeInfo',//编辑文章类别
   deleteTypeInfoById: ipUrl + 'deleteTypeInfoById',//根据id删除文章类别
   getAdminList: ipUrl + 'getAdminList',//获取用户列表
+  editAdminById: ipUrl + 'editAdminById',//根据id改变admin是否启用
+  deleteAdminById: ipUrl + 'deleteAdminById',
+  addAdmin: ipUrl + 'addAdmin'
 }
 
 export default servicePath

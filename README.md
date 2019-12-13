@@ -309,7 +309,11 @@ ALTER USER '你的用户名'@'%' IDENTIFIED WITH mysql_native_password BY '你�
 
 ```bash
 ln -s /usr/local/git/bin/git-upload-pack /usr/bin/git-upload-pack 
-```
+```  
+
+## 2019-12-12  
+今天实现了通过配置nginx，node里获取用户ip  
+真是越学越多
 
 
 

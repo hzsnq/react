@@ -8,9 +8,11 @@ const { confirm } = Modal;
 
 function TypeList(props) {
 
+  //页面参数
   const [isLoading, setIsLoading] = useState(false)
   const [typeInfo, setTypeInfo] = useState([])
 
+  //异步获取文章类别列表
   useEffect(() => {
     let isUnmounted = false;
     const fetchData = async () => {
@@ -37,8 +39,9 @@ function TypeList(props) {
     return () => {
       isUnmounted = true;
     }
-  }, [])
+  }, [props.history])
 
+  //异步获取文章列表方法
   const fetchData = async () => {
     const result = await axios({ method: "get", url: servicePath.getTypeInfo, withCredentials: true })
       .then((res) => {
@@ -57,6 +60,8 @@ function TypeList(props) {
     }
     setTypeInfo(result)
   }
+
+  //更改或保存文章列表内容 判断是保存还是更改
   const updateType = (a, b) => {
     setIsLoading(true)
     if (typeInfo[a - 1].type_name === "" || typeInfo[a - 1].icon === "") {
@@ -64,7 +69,7 @@ function TypeList(props) {
       setIsLoading(false)
     } else {
       if (b === 0) {
-        console.log('save')
+        // console.log('save')
         let params = {
           typeName: typeInfo[a - 1].type_name,
           orderNum: typeInfo[a - 1].order_num,
@@ -81,7 +86,7 @@ function TypeList(props) {
             }
           })
       } else {
-        console.log('update')
+        // console.log('update')
         let params = {
           typeName: typeInfo[a - 1].type_name,
           id: typeInfo[a - 1].id,
@@ -101,6 +106,7 @@ function TypeList(props) {
     }
   }
 
+  //删除文章类别
   const deleteType = (a, b) => {
     let list = [...typeInfo]
     confirm({
@@ -141,6 +147,7 @@ function TypeList(props) {
     });
   }
 
+  //添加一行列表内容
   const addTypeInfo = () => {
     let typeLength = typeInfo.length;
     let item = {
@@ -154,16 +161,21 @@ function TypeList(props) {
     let list = [...typeInfo, item]
     setTypeInfo(list)
   }
+
+  //更新类别名称
   const updateTypeName = (id, e) => {
     let list = [...typeInfo]
     list[id - 1].type_name = e.target.value;
     setTypeInfo(list)
   }
+
+  //更新类别图标
   const updateTypeIcon = (id, e) => {
     let list = [...typeInfo]
     list[id - 1].icon = e.target.value;
     setTypeInfo(list)
   }
+
   return (
     <Spin tip="loading..." spinning={isLoading}>
       <Button type="primary" style={{ marginBottom: 16 }} onClick={addTypeInfo}>添加类别</Button>

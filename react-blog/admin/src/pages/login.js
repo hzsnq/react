@@ -1,19 +1,20 @@
-import React, { useState, useEffect, createContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'antd/dist/antd.css';
 import { Card, Input, Icon, Button, Spin, message } from 'antd';
+import { cryptoEncrypt } from '../utils/crypto'
 import '../static/css/login.css'
 
 import axios from 'axios'
 import servicePath from '../config/apiUrl'
 
-const openIdContext = createContext()
-
 function Login(props) {
 
+  //页面参数
   const [userName, setUserName] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
+  //判断是否登录并跳转
   useEffect(() => {
     let item = localStorage.getItem('openId')
     if (item) {
@@ -21,9 +22,9 @@ function Login(props) {
     } else {
       props.history.push('/login')
     }
-    // console.log(openIdContext)
   }, [props.history])
 
+  //登录
   const checkLogin = () => {
     setIsLoading(true)
 
@@ -37,9 +38,11 @@ function Login(props) {
       return false
     }
 
+    let pwd = cryptoEncrypt(password)
+
     let dataProps = {
       'userName': userName,
-      'password': password
+      'password': pwd
     }
 
     axios({ method: "post", url: servicePath.checkLogin, data: dataProps, withCredentials: true })
@@ -50,8 +53,10 @@ function Login(props) {
           let userInfo = JSON.stringify(res.data.userInfo[0])
           localStorage.setItem('userInfo', userInfo)
           props.history.push('/index')
+        } else if (res.data.data === '该账号未启用') {
+          message.error(res.data.data)
         } else {
-          message.error('用户名密码错误')
+          message.error('账号或密码不正确')
         }
       })
 
@@ -86,4 +91,5 @@ function Login(props) {
     </div>
   )
 }
+
 export default Login

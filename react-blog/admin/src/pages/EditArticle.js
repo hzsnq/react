@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import marked from 'marked'
 import '../static/css/AddArticle.css'
-import { Row, Col, Input, Select, Button, DatePicker, message, Spin } from 'antd'
+import { Row, Col, Input, Select, Button, message, Spin } from 'antd'
 import axios from 'axios'
 import servicePath from '../config/apiUrl'
 
@@ -9,6 +9,8 @@ const { Option } = Select;
 const { TextArea } = Input
 
 function EditArticle(props) {
+
+  //页面参数
   const [articleId, setArticleId] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
   // const [isUpdate, setIsUpdate] = useState(0)  // 文章的更新状态，如果是0说明是新增加，如果不是0，说明是修改
@@ -23,6 +25,7 @@ function EditArticle(props) {
   const [typeInfo, setTypeInfo] = useState([]) // 文章类别信息
   const [selectedType, setSelectType] = useState(1) //选择的文章类别
 
+  //配置marked
   marked.setOptions({
     renderer: marked.Renderer(),
     gfm: true,
@@ -34,6 +37,7 @@ function EditArticle(props) {
     smartypants: false,
   });
 
+  //异步获取文章类别下拉
   useEffect(() => {
     let isUnmounted = false;
     const fetchData = async () => {
@@ -56,10 +60,10 @@ function EditArticle(props) {
     return () => {
       isUnmounted = true;
     }
-  }, [])
+  }, [props.history])
 
+  //异步获取展示文章内容
   useEffect(() => {
-    console.log(props.match.params)
     let isUnmounted = false;
     let params = {
       id: props.match.params.id
@@ -92,28 +96,33 @@ function EditArticle(props) {
     return () => {
       isUnmounted = true;
     }
-  }, [])
+  }, [props.match.params, props.history])
 
+  //同步文章内容
   const changeContent = (e) => {
     setArticleContent(e.target.value)
     let html = marked(e.target.value)
     setMarkdownContent(html)
   }
 
+  //同步文章简介
   const changeIntroduce = (e) => {
     setIntroducemd(e.target.value)
     let html = marked(e.target.value)
     setIntroducehtml(html)
   }
 
+  //改变文章类别
   const changeTypeInfo = (e) => {
     setSelectType(e)
   }
 
+  //改变文章标题
   const changeArticleTitle = (e) => {
     setArticleTitle(e.target.value)
   }
 
+  //改变文章状态并保存  暂存or发布
   const changePublish = () => {
     if (isIssue === 0) {
       setIsIssue(1)
@@ -123,10 +132,14 @@ function EditArticle(props) {
       articleAdd(0)
     }
   }
+
+  //更改文章
   const updateArticle = () => {
     let i = isIssue
     articleAdd(i)
   }
+
+  //保存文章
   const articleAdd = (i) => {
     setIsLoading(true)
     // console.log(isUpdate, isIssue, articleTitle, articleContent, introducemd, showDate, updateDate, selectedType)
@@ -141,7 +154,6 @@ function EditArticle(props) {
       updateDate: date,
       selectedType: selectedType
     }
-    console.log(params)
     let paramsTs = Object.values(params);
     if (paramsTs.includes("") || paramsTs.includes(undefined) || paramsTs.includes(null)) {
       message.warning('还有内容没有填哦！！')
@@ -149,7 +161,6 @@ function EditArticle(props) {
     } else {
       axios({ method: "post", url: servicePath.editArticle, data: params, withCredentials: true })
         .then(res => {
-          // console.log(res)
           setIsLoading(false)
           if (res.data.data === '修改成功') {
             message.success(res.data.data)
@@ -235,17 +246,6 @@ function EditArticle(props) {
                   dangerouslySetInnerHTML={{ __html: '文章简介：' + introducehtml }}
                 ></div>
               </Col>
-              {/* <Col span={12}>
-                <div className="date-select">
-                  <DatePicker
-                    placeholder="发布日期"
-                    format="YYYY-MM-DD HH:mm:ss"
-                    size="large"
-                    value={showDate}
-                    onChange={changeShowDate}
-                  />
-                </div>
-              </Col> */}
             </Row>
           </Col>
         </Row>

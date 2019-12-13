@@ -8,11 +8,12 @@ import ArticleList from './ArticleList'
 import Workbench from './Workbench'
 import TypeList from './TypeList'
 import AdminUserList from './AdminUserList'
-// import { useSelector } from 'react-redux'
+
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
 function AdminIndex(props) {
+  //判断是否登录
   useEffect(() => {
     let item = localStorage.getItem('openId')
     if (item) {
@@ -21,27 +22,35 @@ function AdminIndex(props) {
       props.history.push('/login')
     }
   }, [props.history])
-  // let state = useSelector((state) => ({ list: state.list }));
+
+  //页面参数
   const [collapsed, setCollapsed] = useState(false)
   const [showTitle, setShowTitle] = useState('工作台')
   const [userName, setUserName] = useState('admin')
   const [userAvatar, setUserAvatar] = useState('A')
 
+  //导航栏的展开隐藏
   const onCollapsed = collapsed => {
     setCollapsed(collapsed)
   }
+
+  //退出
   const loginOut = () => {
     localStorage.clear('openId')
     localStorage.clear('userInfo')
     props.history.push('/login')
   }
+
+  //退出下拉菜单组件
   const menu = (
     <Menu >
       <Menu.Item onClick={loginOut}>
         退出
       </Menu.Item>
     </Menu>
-  );
+  )
+
+  //判断用户信息是否存在
   useEffect(() => {
     let user_name = JSON.parse(localStorage.getItem('userInfo'))
     if (user_name === null || user_name === undefined || user_name === '') {
@@ -52,6 +61,7 @@ function AdminIndex(props) {
     }
   }, [props.history])
 
+  //导航点击切换页面
   const handleClick = (e) => {
     if (e.key === "AddArticle") {
       props.history.push('/index/AddArticle')
@@ -70,6 +80,7 @@ function AdminIndex(props) {
       setShowTitle('后台用户')
     }
   }
+
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider collapsible collapsed={collapsed} onCollapse={onCollapsed}>
@@ -85,7 +96,8 @@ function AdminIndex(props) {
           </Menu.Item>
           <SubMenu
             key="sub1"
-            title={
+            title=
+            {
               <span>
                 <Icon type="book" />
                 <span>文章管理</span>
@@ -95,7 +107,6 @@ function AdminIndex(props) {
             <Menu.Item key="ArticleList">文章列表</Menu.Item>
             <Menu.Item key="TypeList">类别列表</Menu.Item>
           </SubMenu>
-
           <Menu.Item key="9">
             <Icon type="smile" />
             <span>留言管理</span>

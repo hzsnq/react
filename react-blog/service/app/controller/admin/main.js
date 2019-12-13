@@ -8,16 +8,28 @@ class MainController extends Controller {
   }
 
   async checkLogin() {
+    let ip = await this.ctx.header['x-forwarded-for'].split(',')[0] || this.ctx.header['x-real-ip'];
     let userName = this.ctx.request.body.userName
     let password = this.ctx.request.body.password
-    const sql = " SELECT user_name,id FROM admin_user WHERE user_name = '" + userName +
+    const sql = " SELECT user_name,id,is_enabled FROM admin_user WHERE user_name = '" + userName +
       "' AND user_pwd = '" + password + "'"
 
     const res = await this.app.mysql.query(sql)
     if (res.length > 0) {
-      let openId = new Date().getTime()
-      this.ctx.session.openId = { 'openId': openId }
-      this.ctx.body = { 'data': '登录成功', 'openId': openId, 'userInfo': res }
+      if (res[0].is_enabled === 1) {
+        let openId = new Date().getTime()
+        let date = Math.round(new Date() / 1000)
+        const updateSql = "update admin_user set last_login_time='" + date + "',last_login_ip='" + ip + "' WHERE id=" + res[0].id
+        const res2 = await this.app.mysql.query(updateSql)
+        if (res2.changedRows > 0) {
+          this.ctx.session.openId = { 'openId': openId }
+          this.ctx.body = { 'data': '登录成功', 'openId': openId, 'userInfo': res }
+        } else {
+          this.ctx.body = { data: '登录失败' }
+        }
+      } else {
+        this.ctx.body = { data: '该账号未启用' }
+      }
     } else {
       this.ctx.body = { data: '登录失败' }
     }
@@ -89,7 +101,7 @@ class MainController extends Controller {
     let selectedType = this.ctx.request.body.selectedType
 
     const sql = "INSERT INTO article(type_id,title,article_content,introduce,add_time,view_count,is_issue,update_time,is_update)" +
-      "VALUES(" + selectedType + ", '" + articleTitle + "', '" + articleContent + "', '" + introducemd + "', '" + showDate + "', " + view_count + ", " + isIssue + ", '" + updateDate + "', " + isUpdate + ")"
+      "VALUES(" + selectedType + ",'" + articleTitle + "','" + articleContent + "','" + introducemd + "','" + showDate + "'," + view_count + "," + isIssue + ",'" + updateDate + "'," + isUpdate + ")"
 
     const res = await this.app.mysql.query(sql)
     if (res.insertId > 0) {
@@ -162,6 +174,48 @@ class MainController extends Controller {
     }
   }
 
+  async editAdminById() {
+    let id = this.ctx.request.body.id
+    let is_enabled = this.ctx.request.body.isEnabled
+    const sql = "update admin_user set is_enabled=" + is_enabled + " WHERE id=" + id
+    const res = await this.app.mysql.query(sql)
+    if (res.changedRows > 0) {
+      this.ctx.body = { 'data': '修改成功' }
+    } else {
+      this.ctx.body = { data: '修改失败' }
+    }
+  }
+
+  async deleteAdminById() {
+
+    let id = this.ctx.request.body.id
+
+    const sql = "DELETE FROM admin_user WHERE id = " + id
+
+    const res = await this.app.mysql.query(sql)
+    if (res.affectedRows > 0) {
+      this.ctx.body = { data: '删除成功' }
+    } else {
+      this.ctx.body = { data: '删除失败' }
+    }
+  }
+
+  async addAdmin() {
+
+    let user_name = this.ctx.request.body.userName
+    let user_pwd = this.ctx.request.body.userPwd
+    let add_time = this.ctx.request.body.addTime
+
+    const sql = "INSERT INTO admin_user(user_name,user_pwd,add_time,last_login_time,last_login_ip,is_enabled,user_state)" +
+      "VALUES('" + user_name + "','" + user_pwd + "','" + add_time + "','" + add_time + "','0.0.0.0','0','1')"
+
+    const res = await this.app.mysql.query(sql)
+    if (res.insertId > 0) {
+      this.ctx.body = { data: '添加成功' }
+    } else {
+      this.ctx.body = { data: '添加失败' }
+    }
+  }
 }
 
 module.exports = MainController

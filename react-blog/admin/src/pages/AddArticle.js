@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import marked from 'marked'
 import '../static/css/AddArticle.css'
 import { Row, Col, Input, Select, Button, DatePicker, message, Spin } from 'antd'
-import { useSelector } from 'react-redux'
 import axios from 'axios'
 import servicePath from '../config/apiUrl'
 
@@ -10,9 +9,7 @@ const { Option } = Select;
 const { TextArea } = Input
 
 function AddArticle(props) {
-
-  // const type = useSelector((state) => ({ list: state.list }))
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)//加载状态
   const [isUpdate, setIsUpdate] = useState(0)  // 文章的更新状态，如果是0说明是新增加，如果不是0，说明是修改
   const [isIssue, setIsIssue] = useState(0)  // 文章的发布状态，如果是0说明是暂存
   const [articleTitle, setArticleTitle] = useState('')   //文章标题
@@ -25,6 +22,7 @@ function AddArticle(props) {
   const [typeInfo, setTypeInfo] = useState([]) // 文章类别信息
   const [selectedType, setSelectType] = useState(1) //选择的文章类别
 
+  //marked配置
   marked.setOptions({
     renderer: marked.Renderer(),
     gfm: true,
@@ -35,7 +33,7 @@ function AddArticle(props) {
     smartLists: true,
     smartypants: false,
   });
-
+  //异步获取文章类别下拉
   useEffect(() => {
     let isUnmounted = false;
     const fetchData = async () => {
@@ -58,43 +56,51 @@ function AddArticle(props) {
     return () => {
       isUnmounted = true;
     }
-  }, [])
+  }, [props.history])
 
+  //同步文章内容与预览
   const changeContent = (e) => {
     setArticleContent(e.target.value)
     let html = marked(e.target.value)
     setMarkdownContent(html)
   }
 
+  //同步文章简介与预览
   const changeIntroduce = (e) => {
     setIntroducemd(e.target.value)
     let html = marked(e.target.value)
     setIntroducehtml(html)
   }
 
+  //更改文章类别
   const changeTypeInfo = (e) => {
     setSelectType(e)
   }
 
+  //更改文章标题
   const changeArticleTitle = (e) => {
     setArticleTitle(e.target.value)
   }
 
+  //更改文章发布日期
   const changeShowDate = (value, dateString) => {
     let date = Math.round(new Date(dateString) / 1000)
     setShowDate(date)
   }
 
+  //暂存文章
   const articleStaging = () => {
     setIsIssue(0)
     articleAdd(0)
   }
 
+  //发布文章
   const articlePublish = () => {
     setIsIssue(1)
     articleAdd(1)
   }
 
+  //添加文章
   const articleAdd = (i) => {
     setIsLoading(true)
     // console.log(isUpdate, isIssue, articleTitle, articleContent, introducemd, showDate, updateDate, selectedType)
@@ -110,7 +116,6 @@ function AddArticle(props) {
       updateDate: showDate,
       selectedType: selectedType
     }
-    // console.log(params)
     let paramsTs = Object.values(params);
     if (paramsTs.includes("") || paramsTs.includes(undefined) || paramsTs.includes(null)) {
       message.warning('还有内容没有填哦！！')
@@ -118,7 +123,6 @@ function AddArticle(props) {
     } else {
       axios({ method: "post", url: servicePath.addArticle, data: params, withCredentials: true })
         .then(res => {
-          // console.log(res)
           setIsLoading(false)
           if (res.data.data === '添加成功') {
             message.success(res.data.data)
