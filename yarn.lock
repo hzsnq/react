@@ -65,6 +65,11 @@ loose-envify@^1.4.0:
   dependencies:
     js-tokens "^3.0.0 || ^4.0.0"
 
+qiniu-js@^2.5.5:
+  version "2.5.5"
+  resolved "https://registry.npm.taobao.org/qiniu-js/download/qiniu-js-2.5.5.tgz?cache=0&sync_timestamp=1571821137651&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fqiniu-js%2Fdownload%2Fqiniu-js-2.5.5.tgz#77d295f222620f9377d6148f3f757d189a1e4977"
+  integrity sha1-d9KV8iJiD5N31hSPP3V9GJoeSXc=
+
 redux-saga@^1.1.3:
   version "1.1.3"
   resolved "https://registry.npm.taobao.org/redux-saga/download/redux-saga-1.1.3.tgz#9f3e6aebd3c994bbc0f6901a625f9a42b51d1112"

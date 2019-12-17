@@ -216,6 +216,50 @@ class MainController extends Controller {
       this.ctx.body = { data: '添加失败' }
     }
   }
+
+  async addImg() {
+
+    let img_title = this.ctx.request.body.imgTitle
+    let img_url = this.ctx.request.body.imgUrl
+    let add_time = this.ctx.request.body.addTime
+    let img_type = this.ctx.request.body.imgType
+    let img_status = this.ctx.request.body.imgStatus
+
+    const sql = "INSERT INTO blog_img(img_title,img_url,add_time,img_type,img_status)" +
+      "VALUES('" + img_title + "','" + img_url + "','" + add_time + "','" + img_type + "'," + img_status + ")"
+
+    const res = await this.app.mysql.query(sql)
+    if (res.insertId > 0) {
+      this.ctx.body = { data: '添加成功' }
+    } else {
+      this.ctx.body = { data: '添加失败' }
+    }
+  }
+
+  async deleteImgById() {
+
+    let id = this.ctx.request.body.id
+
+    const sql = "DELETE FROM blog_img WHERE id = " + id
+
+    const res = await this.app.mysql.query(sql)
+    if (res.affectedRows > 0) {
+      this.ctx.body = { data: '删除成功' }
+    } else {
+      this.ctx.body = { data: '删除失败' }
+    }
+  }
+
+  async getImgList() {
+
+    const sql = "SELECT FROM_UNIXTIME(add_time,'%Y-%m-%d %H:%i:%s' ) as add_time,id,img_title,img_url,img_type,img_status FROM blog_img"
+
+    const result = await this.app.mysql.query(sql)
+    this.ctx.body = {
+      data: result
+    }
+  }
+
 }
 
 module.exports = MainController

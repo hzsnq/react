@@ -8,6 +8,7 @@ import ArticleList from './ArticleList'
 import Workbench from './Workbench'
 import TypeList from './TypeList'
 import AdminUserList from './AdminUserList'
+import ImgList from './ImgList'
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -78,6 +79,9 @@ function AdminIndex(props) {
     } else if (e.key === "AdminUserList") {
       props.history.push('/index/AdminUserList')
       setShowTitle('后台用户')
+    } else if (e.key === "ImgList") {
+      props.history.push('/index/ImgList')
+      setShowTitle('图片管理')
     }
   }
 
@@ -107,6 +111,10 @@ function AdminIndex(props) {
             <Menu.Item key="ArticleList">文章列表</Menu.Item>
             <Menu.Item key="TypeList">类别列表</Menu.Item>
           </SubMenu>
+          <Menu.Item key="ImgList">
+            <Icon type="file-image" />
+            <span>图片管理</span>
+          </Menu.Item>
           <Menu.Item key="9">
             <Icon type="smile" />
             <span>留言管理</span>
@@ -143,6 +151,7 @@ function AdminIndex(props) {
               <Route path="/index/EditArticle/:id" component={EditArticle} />
               <Route path="/index/TypeList" component={TypeList} />
               <Route path="/index/AdminUserList" component={AdminUserList} />
+              <Route path="/index/ImgList" component={ImgList} />
             </div>
           </div>
         </Content>

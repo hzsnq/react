@@ -16,4 +16,7 @@ module.exports = app => {
   router.post('/admin/editAdminById', adminauth, controller.admin.main.editAdminById)
   router.post('/admin/deleteAdminById', adminauth, controller.admin.main.deleteAdminById)
   router.post('/admin/addAdmin', adminauth, controller.admin.main.addAdmin)
+  router.post('/admin/addImg', adminauth, controller.admin.main.addImg)
+  router.post('/admin/deleteImgById', adminauth, controller.admin.main.deleteImgById)
+  router.get('/admin/getImgList', adminauth, controller.admin.main.getImgList)
 }

@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "qiniu-js": "^2.5.5",
     "redux-saga": "^1.1.3"
   }
 }
