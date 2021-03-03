@@ -1,8 +1,8 @@
 module.exports = app => {
   const { router, controller } = app
   router.get('/default/index', controller.default.home.index)
-  router.get('/default/getArticleList', controller.default.home.getArticleList)
-  router.get('/default/getArticleById/:id', controller.default.home.getArticleById)
-  router.get('/default/getArticleListByTypeId/:id', controller.default.home.getArticleListByTypeId)
+  router.post('/default/getArticleList', controller.default.home.getArticleList)
+  router.post('/default/getArticleById', controller.default.home.getArticleById)
+  router.post('/default/getArticleListByTypeId', controller.default.home.getArticleListByTypeId)
   router.get('/default/getTypeInfo', controller.default.home.getTypeInfo)
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
-import { Row, Col, List, Icon, Breadcrumb } from 'antd'
+import { Row, Col, List, Icon, Breadcrumb, Pagination, Spin } from 'antd'
 import Header from '../components/Header'
 import Author from '../components/Author';
 import Advert from '../components/Advert';
@@ -17,11 +17,13 @@ import hljs from "highlight.js";
 import 'highlight.js/styles/monokai-sublime.css';
 
 const MyList = (props) => {
+    const [isLoading, setIsLoading] = useState(false)//加载状态
     const [myList, setMyList] = useState(props.data)
-
+    const [total, setTotal] = useState(props.total[0].total)
     useEffect(() => {
         setMyList(props.data)
-    })
+        setTotal(props.total[0].total)
+    }, [props.data])
 
     const renderer = new marked.Renderer();
     marked.setOptions({
@@ -39,11 +41,27 @@ const MyList = (props) => {
             return hljs.highlightAuto(code).value;
         }
     });
-
+    const onChange = (pageNumber) => {
+        setIsLoading(true)
+        let params = {
+            pageNum: (pageNumber - 1) * 10,
+            id: myList[0].type_id
+        }
+        axios({ method: "post", url: servicePath.getArticleListByTypeId, data: params })
+            .then((res) => {
+                setMyList(res.data.data)
+                setTotal(res.data.total[0].total)
+                window.scrollTo(0, 0);
+                setIsLoading(false)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
     return (
         <>
             <Head>
-                <title>{myList[0].type_name}</title>
+                <title>{myList.length === 0 ? '' : myList[0].type_name}</title>
             </Head>
             <Header></Header>
             <Row className='comm-main' type="flex" justify="center">
@@ -52,33 +70,36 @@ const MyList = (props) => {
                         <div className="bread-div">
                             <Breadcrumb>
                                 <Breadcrumb.Item><a href="/">首页</a></Breadcrumb.Item>
-                                <Breadcrumb.Item>{myList[0].type_name}</Breadcrumb.Item>
+                                <Breadcrumb.Item>{myList.length === 0 ? '' : myList[0].type_name}</Breadcrumb.Item>
                             </Breadcrumb>
                         </div>
-
-                        <List
-                            itemLayout="vertical"
-                            dataSource={myList}
-                            renderItem={item => (
-                                <List.Item>
-                                    <div className="list-title"><Link href={{ pathname: '/detailed', query: { id: item.id } }}><a>{item.title}</a></Link></div>
-                                    <div className="list-icon">
-                                        <span><Icon type="calendar" ></Icon>{item.add_time}</span>
-                                        <span><Icon type="folder" ></Icon>{item.type_name}</span>
-                                        <span><Icon type="fire" ></Icon>{item.view_count}人</span>
-                                    </div>
-                                    <div className="list-context"
-                                        dangerouslySetInnerHTML={{ __html: marked(item.introduce) }}
-                                    ></div>
-                                </List.Item>
-                            )}
-                        >
-                        </List>
+                        <Spin tip="loading..." spinning={isLoading}>
+                            <List
+                                itemLayout="vertical"
+                                dataSource={myList}
+                                renderItem={item => (
+                                    <List.Item>
+                                        <div className="list-title"><Link href={{ pathname: '/detailed', query: { id: item.id } }}><a>{item.title}</a></Link></div>
+                                        <div className="list-icon">
+                                            <span><Icon type="calendar" ></Icon>{item.add_time}</span>
+                                            <span><Icon type="folder" ></Icon>{item.type_name}</span>
+                                            <span><Icon type="fire" ></Icon>{item.view_count}人</span>
+                                        </div>
+                                        <div className="list-context"
+                                            dangerouslySetInnerHTML={{ __html: marked(item.introduce) }}
+                                        ></div>
+                                    </List.Item>
+                                )}
+                            >
+                            </List>
+                            <div className='pagination'>
+                                <Pagination showQuickJumper defaultCurrent={1} total={total} onChange={onChange} />
+                            </div>
+                        </Spin>
                     </div>
                 </Col>
                 <Col className="comm-box" xs={0} sm={0} md={7} lg={5} xl={4}>
                     <Author></Author>
-                    <Advert></Advert>
                 </Col>
             </Row>
             <Footer></Footer>
@@ -87,9 +108,12 @@ const MyList = (props) => {
 }
 
 MyList.getInitialProps = async (context) => {
-    let id = context.query.id
+    let params = {
+        pageNum: 0,
+        id: context.query.id
+    }
     const promise = new Promise((resolve) => {
-        axios(servicePath.getArticleListByTypeId + id)
+        axios({ method: "post", url: servicePath.getArticleListByTypeId, data: params })
             .then((res) => {
                 resolve(res.data)
             })

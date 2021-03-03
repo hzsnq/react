@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Head from 'next/head'
 import { Row, Col, Affix, Icon, Breadcrumb } from 'antd'
 import marked from 'marked'
@@ -21,7 +21,6 @@ import Tocify from '../components/tocify.tsx'
 const Detailed = (props) => {
 
     let articleContent = props.article_content
-
     const tocify = new Tocify()
     const renderer = new marked.Renderer();
     renderer.heading = function (text, level, raw) {
@@ -48,7 +47,7 @@ const Detailed = (props) => {
     return (
         <>
             <Head>
-                <title>博客详细页</title>
+                <title>{props.title}</title>
             </Head>
             <Header />
             <Row className="comm-main" type="flex" justify="center">
@@ -80,7 +79,6 @@ const Detailed = (props) => {
 
                 <Col className="comm-box" xs={0} sm={0} md={7} lg={5} xl={4}>
                     <Author />
-                    <Advert />
                     <Affix offsetTop={5}>
                         <div className="detailed-nav comm-box">
                             <div className="nav-title">文章目录</div>
@@ -97,9 +95,11 @@ const Detailed = (props) => {
 }
 
 Detailed.getInitialProps = async (context) => {
-    let id = context.query.id
+    let params = {
+        id: context.query.id
+    }
     const promise = new Promise((resolve) => {
-        axios(servicePath.getArticleById + id)
+        axios({ method: "post", url: servicePath.getArticleById, data: params })
             .then((res) => {
                 resolve(res.data.data[0])
             })

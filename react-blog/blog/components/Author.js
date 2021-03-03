@@ -4,7 +4,7 @@ import '../static/style/components/author.css'
 const Author = () => {
     return (
         <div className='author-div'>
-            <div><Avatar size={100} src="http://img2.woyaogexing.com/2019/12/03/bce5fb78a0664bc6a5703ec01e9ab69c!400x400.jpeg"></Avatar></div>
+            <div><Avatar size={100} src="http://file.qqtouxiang.com/gexing/2019-10-21/smalla6ad558b6ad8ca299b872bd72f103cf01571643427.jpg"></Avatar></div>
             <div className="author-introduction">
                 专注于WEB和移动前端开发
                 <Divider>社交账号</Divider>
