@@ -313,7 +313,7 @@ ln -s /usr/local/git/bin/git-upload-pack /usr/bin/git-upload-pack
 
 ## 2019-12-12  
 今天实现了通过配置nginx，node里获取用户ip  
-真是越学越多
+真是越学越多- _ -
 
 
 
